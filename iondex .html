@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://indonesiafamilymanajemen.family.blog/wp-content/uploads/2024/06/20240118_1239551905214338756040292.png">
+    <title> All payment</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 0;
+            text-align: left;
+        }
+        .header img {
+            width: 50px;
+            vertical-align: middle;
+        }
+        .header h1 {
+            display: inline;
+            font-size: 24px;
+            margin: 0;
+            vertical-align: middle;
+        }
+        .header .menu {
+            float: right;
+            margin-right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 10px;
+        }
+        .content {
+            text-align: center;
+            padding: 50px 20px;
+            background-color: #007bff;
+            color: white;
+        }
+        .content h2 {
+            font-size: 24px;
+            margin: 0 0 20px;
+        }
+        .content .register-btn {
+            background-color: #ff6600;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+        .content p {
+            margin: 20px 0 0;
+            font-size: 16px;
+        }
+        .ad-formats {
+            background-color: #f0f0f0;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .ad-format {
+            background-color: white;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            flex: 1 1 calc(33.333% - 20px);
+            margin: 10px;
+        }
+        .ad-format img {
+            width: 30px;
+            height: 30px;
+        }
+        .ad-format h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .ad-format.active {
+            background-color: #28a745;
+            color: white;
+        }
+        .ad-format.active img {
+            filter: invert(1);
+        }
+        .ad-format-content {
+            display: none;
+            padding: 10px;
+            background-color: white;
+            border: 1px solid #ddd;
+            flex-basis: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .ad-format-content .item {
+            flex: 1 1 calc(50% - 10px);
+            box-sizing: border-box;
+        }
+        .ad-format.active + .ad-format-content {
+            display: block;
+        }
+     
+        .why-choose-us {
+            background-color: #fff;
+            color: #333;
+            padding: 50px 20px;
+            text-align: center;
+        }
+        .why-choose-us h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .why-choose-us .reason {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            flex: 1 1 calc(50% - 20px);
+            margin: 10px;
+        }
+        .why-choose-us .reason img {
+            width: 40px;
+            height: 40px;
+            margin-right: 20px;
+        }
+        .why-choose-us .reason p {
+            margin: 0;
+            font-size: 16px;
+            text-align: left;
+        }
+        .join-us {
+            background-color: #007bff;
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+            width: 1300px;
+        }
+        .join-us h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .join-us .register-btn {
+            background-color: #ff6600;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+        .footer {
+            background-color: #0056b3;
+            color: white;
+            text-align: center;
+            padding: 1px 0;
+            width: 1300px;
+        }
+        .menu-list {
+            display: none;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            background-color: #007bff;
+            position: absolute;
+            right: 20px;
+            top: 50px;
+            width: 150px;
+            text-align: right;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .menu-list li {
+            padding: 10px;
+        }
+        .menu-list li a {
+            color: white;
+            text-decoration: none;
+        }
+        .menu-list li:hover {
+            background-color: #007bff;
+        }
+        .menu-list.active {
+            display: block;
+        }
+        .dropdown-menu {
+            display: none;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            background-color: #007bff;
+            position: absolute;
+            right: 20px;
+            top: 50px;
+            width: 150px;
+            text-align: right;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .dropdown-menu li {
+            padding: 10px;
+        }
+        .dropdown-menu li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown-menu li:hover {
+            background-color: #0056b3;
+        }
+        .dropdown-menu.active {
+            display: block;
+        }
+        .dropdown-menu {
+            right: 0;
+            left: auto;
+        }
+        @media (max-width: 768px) {
+            .ad-format {
+                flex: 1 1 100%;
+            }
+            .targeting-options .option {
+                flex: 1 1 100%;
+            }
+            .why-choose-us .reason {
+                flex: 1 1 100%;
+            }
+        }
+        .popular-today {
+            background-color: #007bff;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .popular-today h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .popular-items {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .popular-item {
+            background-color: #007bff;
+            border: 2px solid #ffffff;
+            margin-bottom: 10px;
+            padding: 10px;
+            width: calc(50% - 10px);
+            box-sizing: border-box;
+            text-align: left;
+        }
+
+        .popular-item img {
+            width: 100%;
+            height: auto;
+        }
+
+        .item-info {
+            margin-top: 10px;
+        }
+
+        .item-info .tag,
+        .item-info .episode,
+        .item-info .sub {
+            display: inline-block;
+            background-color: #ff6600;
+            color: #fff;
+            padding: 2px 5px;
+            margin-right: 5px;
+            font-size: 12px;
+            border-radius: 3px;
+        }
+
+        .item-info p {
+            margin: 10px 0 0;
+            font-size: 14px;
+        }
+
+        .slider {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+            overflow: hidden;
+        }
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .slides img {
+            width: 100%;
+            border: 0;
+        }
+        .navigation {
+            position: absolute;
+            width: 100%;
+            top: 50%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+        .navigation button {
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="https://indonesiafamilymanajemen.family.blog/wp-content/uploads/2024/06/20240118_1239551905214338756040292.png" alt="Clickadu Logo">
+        <h1>landing page</h1>
+        <div class="menu" onclick="toggleMenu()">☰</div>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Home</a></li>
+            <li><a class="dropdown-item" href="#">Services</a></li>
+            <li><a class="dropdown-item" href="#">About</a></li>
+            <li><a class="dropdown-item" href="#">caming Soon</a></li>
+        </ul>
+    </div>
+    <div class="slider">
+        <div class="slides">
+            <img src="https://indonesiafamilymanajemen.family.blog/wp-content/uploads/2024/06/2_20240615_193252_0001.png" alt="Image 1">
+            <img src="https://indonesiafamilymanajemen.family.blog/wp-content/uploads/2024/06/1_20240615_193252_0000.png" alt="Image 2">
+            <img src="https://indonesiafamilymanajemen.family.blog/wp-content/uploads/2024/06/2_20240615_193252_0001.png" alt="Image 3">
+        </div>
+        <div class="navigation">
+            <button id="prev">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16">
+                    <path d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1"/>
+                </svg>
+            </button>
+            <button id="next">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-square-fill" viewBox="0 0 16 16">
+                    <path d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1"/>
+                  </svg>
+            </button>
+        </div>
+    </div>
+    <div class="ad-formats">
+        <div class="ad-format" onclick="toggleContent(this)">
+            <img src="https://indonesiafamilymanajemen.family.blog/wp-content/uploads/2024/06/20240118_1239551905214338756040292.png" alt="Banners">
+            <h3>Home applikasi</h3>
+            <span>▼</span>
+        </div>
+        <div class="ad-format-content" style="display: none;">
+            <div class="item">
+                <img src="https://indonesiafamilymanajemen.family.blog/wp-content/uploads/2024/08/20240816_0121278105336873774074425.png" alt="Banner Example" style="width: 100%;">
+                <p>Banner ad is a traditional (and the most Google-friendly) display ad format. Choose banner advertising to get misclick protection, multi-creative tool, and a wide selection of GEOs.</p>
+            </div>
+        </div> <!-- Tutup div ad-format-content -->
+        
+        <div class="ad-format" onclick="toggleContent(this)">
+            <img src="https://indonesiafamilymanajemen.family.blog/wp-content/uploads/2024/06/20240118_1239551905214338756040292.png" alt="Popunder">
+            <h3>Popunder</h3>
+            <span>▼</span>
+        </div>
+        <div class="ad-format-content" style="display: none;">
+            <div class="item">
+                <img src="popunder-example.png" alt="Popunder Example" style="width: 100%;">
+                <p>Popunder ads are a type of ad that appears behind the main browser window. They are less intrusive and can be effective for certain types of campaigns.</p>
+            </div>
+            <div class="item">
+                <h5>testing</h5>
+                <img src="popunder-example.png" alt="Popunder Example" style="width: 100%;">
+                <p>Popunder ads are a type of ad that appears behind the main browser window. They are less intrusive and can be effective for certain types of campaigns.</p>
+            </div>
+        </div> <!-- Tutup div ad-format-content -->
+        
+        <div class="ad-format" onclick="toggleContent(this)">
+            <img src="https://indonesiafamilymanajemen.family.blog/wp-content/uploads/2024/06/20240118_1239551905214338756040292.png" alt="Push Notifications">
+            <h3>Push Notifications</h3>
+            <span>▼</span>
+        </div>
+        <div class="ad-format-content" style="display: none;">
+            <div class="item">
+                <img src="push-notification-example.png" alt="Push Notification Example" style="width: 100%;">
+                <p>Push notifications are a type of ad that appears directly on the user's device. They are highly engaging and can be used to deliver timely and relevant messages.</p>
+            </div>
+            <div class="item">
+                <img src="push-notification-example.png" alt="Push Notification Example" style="width: 100%;">
+                <p>Push notifications are a type of ad that appears directly on the user's device. They are highly engaging and can be used to deliver timely and relevant messages.</p>
+            </div>
+        </div> 
+
+
+    <div class="popular-today">
+        <h2>Popular Today</h2>
+        <div class="popular-items">
+            <div class="popular-item">
+      <img src="https://indonesiafamilymanajemen.family.blog/wp-content/uploads/2024/08/wp-17246778790634003384081731858420.png" alt="Soul Land 2: The Unrivaled Tang Sect">
+                <div class="item-info">
+                    <span class="tag">Donghua</span>
+                    <span class="episode">Ep 64</span>
+                    <span class="sub">Sub</span>
+                    <p>Soul Land 2: The Unrivaled Tang Sect</p>
+                </div>
+            </div>
+            <div class="popular-item">
+                <img src="https://indonesiafamilymanajemen.family.blog/wp-content/uploads/2024/08/wp-17246778790634003384081731858420.png" alt="Perfect World">
+                <div class="item-info">
+                    <span class="tag">Donghua</span>
+                    <span class="episode">Ep 178</span>
+                    <span class="sub">Sub</span>
+                    <p>Perfect World</p>
+                </div>
+            </div>
+            <div class="popular-item">
+                <img src="https://indonesiafamilymanajemen.family.blog/wp-content/uploads/2024/08/wp-17246778790634003384081731858420.png" alt="Jade Dynasty">
+                <div class="item-info">
+                    <span class="tag">Donghua</span>
+                    <span class="episode">Ep 51</span>
+                    <span class="sub">Sub</span>
+                    <p>Jade Dynasty</p>
+                </div>
+            </div>
+            <div class="popular-item">
+                <img src="https://indonesiafamilymanajemen.family.blog/wp-content/uploads/2024/08/wp-17246778790634003384081731858420.png" alt="Battle Through the Heavens Season 5">
+                <div class="item-info">
+                    <span class="tag">Donghua</span>
+                    <span class="episode">Ep 109</span>
+                    <span class="sub">Sub</span>
+                    <p>Battle Through the Heavens Season 5</p>
+                </div>
+            </div>
+            <div class="popular-item">
+                <img src="https://indonesiafamilymanajemen.family.blog/wp-content/uploads/2024/08/wp-17246778790634003384081731858420.png" alt="Apotheosis">
+                <div class="item-info">
+                    <span class="tag">Donghua</span>
+                    <span class="episode">Ep 92</span>
+                    <span class="sub">Sub</span>
+                    <p>Apotheosis</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="why-choose-us">
+        <h2>Mengapa 1000+ pengiklan memilih kami setiap hari?</h2>
+        <div class="row">
+            <div class="col-md-6 reason">
+                <img src="https://indonesiafamilymanajemen.family.blog/wp-content/uploads/2024/06/20240118_1239551905214338756040292.png" alt="Target">
+                <p>Cakupan lalu lintas terbaik di seluruh dunia</p>
+            </div>
+            <div class="col-md-6 reason">
+                <img src="https://indonesiafamilymanajemen.family.blog/wp-content/uploads/2024/06/20240118_1239551905214338756040292.png" alt="Target">
+                <p>4B+ tayangan harian dari penerbit langsung di seluruh dunia</p>
+            </div>
+            <div class="col-md-6 reason">
+                <img src="https://indonesiafamilymanajemen.family.blog/wp-content/uploads/2024/06/20240118_1239551905214338756040292.png" alt="Target">
+                <p>Empat model harga</p>
+            </div>
+            <div class="col-md-6 reason">
+                <img src="https://indonesiafamilymanajemen.family.blog/wp-content/uploads/2024/06/20240118_1239551905214338756040292.png" alt="Target">
+                <p>Platform Layanan Mandiri yang Mudah Digunakan</p>
+            </div>
+            <div class="col-md-6 reason">
+                <img src="https://indonesiafamilymanajemen.family.blog/wp-content/uploads/2024/06/20240118_1239551905214338756040292.png" alt="Target">
+                <p>Dukungan 24/7 dan manajer khusus</p>
+            </div>
+            <div class="col-md-6 reason">
+                <img src="https://indonesiafamilymanajemen.family.blog/wp-content/uploads/2024/06/20240118_1239551905214338756040292.png" alt="Target">
+                <p>Integrasi dengan mayoritas solusi pelacakan</p>
+            </div>
+        </div>
+    </div>
+
+   
+    <div class="join-us">
+        <h2>BERGABUNGLAH DENGAN PLATFORM KAMI</h2>
+        <a href="#" class="register-btn">UNDUH</a>
+    </div>
+    <div class="footer">
+        APLIKASI @Tahun 2024 Hak cipta dilindungi
+    </div>
+   
+
+    <script>
+        function toggleContent(element) {
+            const isActive = element.classList.contains('active');
+            const allFormats = document.querySelectorAll('.ad-format');
+            const allContents = document.querySelectorAll('.ad-format-content');
+            
+            allFormats.forEach(format => format.classList.remove('active'));
+            allContents.forEach(content => content.style.display = 'none');
+            
+            if (!isActive) {
+                element.classList.add('active');
+                element.nextElementSibling.style.display = 'block';
+                element.querySelector('span').textContent = '▲';
+            } else {
+                element.querySelector('span').textContent = '▼';
+            }
+        }
+        
+        function toggleMenu() {
+            const menuList = document.querySelector('.dropdown-menu');
+            menuList.classList.toggle('active');
+        }
+
+        document.querySelectorAll('.dropdown-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const menuList = document.querySelector('.dropdown-menu');
+                menuList.classList.remove('active');
+            });
+        });
+
+        const slides = document.querySelector('.slides');
+        const images = document.querySelectorAll('.slides img');
+        const prevButton = document.getElementById('prev');
+        const nextButton = document.getElementById('next');
+
+        let currentIndex = 0;
+        let autoSlideInterval;
+
+        function showSlide(index) {
+            if (index >= images.length) {
+                currentIndex = 0;
+            } else if (index < 0) {
+                currentIndex = images.length - 1;
+            } else {
+                currentIndex = index;
+            }
+            slides.style.transform = `translateX(${-currentIndex * 100}%)`;
+        }
+
+        function autoSlide() {
+            autoSlideInterval = setInterval(() => {
+                showSlide(currentIndex + 1);
+            }, 3000); 
+        }
+
+        prevButton.addEventListener('click', () => {
+            showSlide(currentIndex - 1);
+            clearInterval(autoSlideInterval);
+            autoSlide();
+        });
+
+        nextButton.addEventListener('click', () => {
+            showSlide(currentIndex + 1);
+            clearInterval(autoSlideInterval);
+            autoSlide();
+        });
+
+        showSlide(currentIndex);
+        autoSlide();
+    </script>
+</body>
+</html>

@@ -4,15 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="https://indonesiafamilymanajemen.family.blog/wp-content/uploads/2024/06/20240118_1239551905214338756040292.png">
-    <title> All payment</title>
+    <title>All payment</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="atas.css">
-    
-    </head>
+    <link rel="stylesheet" href="atas.css">
+</head>
 <body>
+    <!-- Tambahkan elemen div untuk pemutar YouTube -->
+    <div id="youtube-player"></div>
+
     <div class="header">
         <img src="https://indonesiafamilymanajemen.family.blog/wp-content/uploads/2024/06/20240118_1239551905214338756040292.png" alt="Clickadu Logo">
         <h1>landing page</h1>
@@ -21,9 +23,42 @@
             <li><a class="dropdown-item" href="#">Home</a></li>
             <li><a class="dropdown-item" href="#">Services</a></li>
             <li><a class="dropdown-item" href="#">About</a></li>
-            <li><a class="dropdown-item" href="#">caming Soon</a></li>
+            <li><a class="dropdown-item" href="#">Coming Soon</a></li>
         </ul>
     </div>
+
+    <script>
+        // 1. Memuat IFrame Player API code secara asinkron
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        // 2. Membuat variabel untuk pemutar YouTube
+        var player;
+
+        // 3. Fungsi ini akan dipanggil oleh API YouTube setelah API siap
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-player', {
+                height: '0', // Sembunyikan video
+                width: '0',  // Sembunyikan video
+                videoId: 'F_Dm0P65LW4', // ID video YouTube
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        }
+
+        // 4. Fungsi ini akan dipanggil ketika pemutar siap
+        function onPlayerReady(event) {
+            const menuButton = document.querySelector('.menu');
+            menuButton.addEventListener('click', function() {
+                event.target.playVideo();
+            });
+        }
+    </script>
+
+ 
     <div class="slider">
         <div class="slides">
             <img src="https://indonesiafamilymanajemen.family.blog/wp-content/uploads/2024/06/2_20240615_193252_0001.png" alt="Image 1">

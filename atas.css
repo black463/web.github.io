@@ -27,8 +27,6 @@ body {
     cursor: pointer;
     padding: 10px;
 }
-
-
 .content {
     text-align: center;
     padding: 50px 20px;
@@ -54,6 +52,9 @@ body {
 .ad-formats {
     background-color: #f0f0f0;
     padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 .ad-format {
     background-color: white;
@@ -64,6 +65,8 @@ body {
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
+    flex: 1 1 calc(33.333% - 20px);
+    margin: 10px;
 }
 .ad-format img {
     width: 30px;
@@ -85,39 +88,17 @@ body {
     padding: 10px;
     background-color: white;
     border: 1px solid #ddd;
+    flex-basis: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.ad-format-content .item {
+    flex: 1 1 calc(50% - 10px);
+    box-sizing: border-box;
 }
 .ad-format.active + .ad-format-content {
     display: block;
-}
-.targeting-options {
-    background-color: #007bff;
-    color: white;
-    padding: 50px 20px;
-    text-align: center;
-}
-.targeting-options h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-}
-.targeting-options .option {
-    display: inline-block;
-    width: 45%;
-    margin: 10px;
-    text-align: center;
-}
-@media (max-width: 768px) {
-    .targeting-options .option {
-        width: 45%;
-        margin: 10px 0;
-    }
-}
-.targeting-options .option img {
-    width: 80px;
-    height: 80px;
-}
-.targeting-options .option p {
-    margin: 10px 0 0;
-    font-size: 16px;
 }
 .why-choose-us {
     background-color: #fff;
@@ -133,6 +114,8 @@ body {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
+    flex: 1 1 calc(50% - 20px);
+    margin: 10px;
 }
 .why-choose-us .reason img {
     width: 40px;
@@ -149,6 +132,7 @@ body {
     color: white;
     padding: 50px 20px;
     text-align: center;
+    width: 1300px;
 }
 .join-us h2 {
     font-size: 24px;
@@ -166,7 +150,8 @@ body {
     background-color: #0056b3;
     color: white;
     text-align: center;
-    padding: 10px 0;
+    padding: 1px 0;
+    width: 1300px;
 }
 .menu-list {
     display: none;
@@ -190,7 +175,7 @@ body {
     text-decoration: none;
 }
 .menu-list li:hover {
-    background-color: #0056b3;
+    background-color: #007bff;
 }
 .menu-list.active {
     display: block;
@@ -222,4 +207,95 @@ body {
 }
 .dropdown-menu.active {
     display: block;
+}
+.dropdown-menu {
+    right: 0;
+    left: auto;
+}
+@media (max-width: 768px) {
+    .ad-format {
+        flex: 1 1 100%;
+    }
+    .targeting-options .option {
+        flex: 1 1 100%;
+    }
+    .why-choose-us .reason {
+        flex: 1 1 100%;
+    }
+}
+.popular-today {
+    background-color: #007bff;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+.popular-today h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+.popular-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.popular-item {
+    background-color: #007bff;
+    border: 2px solid #ffffff;
+    margin-bottom: 10px;
+    padding: 10px;
+    width: calc(50% - 10px);
+    box-sizing: border-box;
+    text-align: left;
+}
+.popular-item img {
+    width: 100%;
+    height: auto;
+}
+.item-info {
+    margin-top: 10px;
+}
+.item-info .tag,
+.item-info .episode,
+.item-info .sub {
+    display: inline-block;
+    background-color: #ff6600;
+    color: #fff;
+    padding: 2px 5px;
+    margin-right: 5px;
+    font-size: 12px;
+    border-radius: 3px;
+}
+.item-info p {
+    margin: 10px 0 0;
+    font-size: 14px;
+}
+.slider {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    overflow: hidden;
+}
+.slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+.slides img {
+    width: 100%;
+    border: 0;
+}
+.navigation {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+}
+.navigation button {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
 }

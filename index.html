@@ -181,37 +181,90 @@
         <h2>Certificates</h2>
         <div class="popular-items">
             <div class="popular-item">
-      <img src="https://indonesiafamilymanajemen.family.blog/wp-content/uploads/2024/09/cuplikan-layar-2024-09-04-203118.png" alt="Soul Land 2: The Unrivaled Tang Sect" style="border-radius: 10px;">
+      <img src="https://indonesiafamilymanajemen.family.blog/wp-content/uploads/2024/09/cuplikan-layar-2024-09-04-203118.png" alt="Soul Land 2: The Unrivaled Tang Sect" style="border-radius: 10px;" onclick="showPopup(this)">
                 <div class="item-info">
                     <span class="tag">Certificates</span>
-                   
                 </div>
             </div>
             <div class="popular-item">
-                <img src="https://indonesiafamilymanajemen.family.blog/wp-content/uploads/2024/09/cuplikan-layar-2024-09-04-203211.png" alt="Perfect World" style="border-radius: 10px;">
+                <img src="https://indonesiafamilymanajemen.family.blog/wp-content/uploads/2024/09/cuplikan-layar-2024-09-04-203211.png" alt="Perfect World" style="border-radius: 10px;" onclick="showPopup(this)">
                 <div class="item-info">
                     <span class="tag">Certificates</span>
-                    
                 </div>
             </div>
             <div class="popular-item">
-                <img src="https://indonesiafamilymanajemen.family.blog/wp-content/uploads/2024/09/cuplikan-layar-2024-09-04-203255.png" alt="Jade Dynasty" style="border-radius: 10px;">
+                <img src="https://indonesiafamilymanajemen.family.blog/wp-content/uploads/2024/09/cuplikan-layar-2024-09-04-203255.png" alt="Jade Dynasty" style="border-radius: 10px;" onclick="showPopup(this)">
                 <div class="item-info">
                     <span class="tag">Certificates</span>
-                   
                 </div>
             </div>
-           
             <div class="popular-item">
-                <img src="https://indonesiafamilymanajemen.family.blog/wp-content/uploads/2024/09/cuplikan-layar-2024-09-04-203036.png" alt="Apotheosis" style="border-radius: 10px;">
+                <img src="https://indonesiafamilymanajemen.family.blog/wp-content/uploads/2024/09/cuplikan-layar-2024-09-04-203036.png" alt="Apotheosis" style="border-radius: 10px;" onclick="showPopup(this)">
                 <div class="item-info">
                     <span class="tag">Certificates</span>
-                    
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Popup Container -->
+    <div id="popup" class="popup">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <img class="popup-content" id="popup-img">
+    </div>
+
+    <style>
+        .popup {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            padding-top: 60px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .popup-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+
+    <script>
+        function showPopup(img) {
+            var popup = document.getElementById("popup");
+            var popupImg = document.getElementById("popup-img");
+            popup.style.display = "block";
+            popupImg.src = img.src;
+        }
+
+        function closePopup() {
+            var popup = document.getElementById("popup");
+            popup.style.display = "none";
+        }
+    </script>
 
     <div class="why-choose-us">
         <h2>Mengapa 1000+ memilih kami setiap hari?</h2>

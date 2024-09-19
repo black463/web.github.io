@@ -1,0 +1,97 @@
+:root {
+  --color: #26A69A;
+  --white: #fff;
+  --hover: #30c1b9;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: var(--white);
+}
+
+.container {
+  position: absolute;
+  width: 100%;
+  background: var(--color);
+  height: 300px;
+  top: 0;
+  margin-top: 0px;
+  padding: 10px;
+  z-index: 0;
+  border-radius: 0px 0px 0px 0px;
+}
+
+.header {
+  width: 95%;
+  padding: 15px;
+  height: 450px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 60px;
+  border: 2px solid #eaeaea;
+}
+
+p {
+  text-align: center;
+  font-weight: 600;
+  font-family: Poppins;
+  font-size: 15px;
+  margin: -10px;
+}
+
+h1 {
+  text-align: center;
+  font-weight: 600;
+  font-family: Poppins;
+  font-size: 12px;
+  margin-top: 0px;
+  color: #000;
+}
+
+.btn-kembali {
+  background-color: var(--color);
+  color: #fff;
+  font-weight: bold;
+  border-radius: 90px;
+  padding: 10px;
+  margin-top: 0px;
+  border: none;
+  font-size: 15px;
+  width: 290px;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+}
+
+.btn-kembali:hover {
+  background-color: var(--hover);
+  width: 300px;
+  border: 2px solid var(--color);
+}
+
+img {
+  width: 250px;
+  height: 250px;
+  background-color: var(--white);
+  border-radius: 5px;
+  border: 5px solid var(--white);
+  margin-top: -10px;
+  padding: 10px;
+}
+.header1 {
+  width: 95%;
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 0 0px rgba(0, 0, 0, 0.1);
+  margin-top: 60px;
+  border: 2px solid var(--white);
+}
+strong{
+  color: var(--color);
+  font-size: 15px;
+}

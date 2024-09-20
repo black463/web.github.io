@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>dev pemula</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="media.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap');
+
+:root 
+{
+  --family:'Nunito', sans-serif;
+}
+* 
+{
+   -webkit-transition: all .3s ease-out;
+   -moz-transition:  all .3s ease-out;
+   -ms-transition: all .3s ease-out;
+   -o-transition:  all .3s ease-out;
+   transition: all .3s ease-out;
+}
+
+body
+{
+  font-size:17px;
+  color: #666;
+  text-align:justify;
+  font-family: var(--family);
+  background: rgb(0,159,231);
+  background: linear-gradient(326deg, rgba(147,13,224,1) 0%, rgba(0,159,231,1) 15%, rgba(0,222,223,1) 50%, rgba(156,0,224,1) 100%);
+  background-repeat:no-repeat;
+  background-size: 100% 600%;
+  min-height: 100%;
+}
+
+section 
+{
+  padding-top:25vw;
+}
+
+section::before
+{
+ content: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23FF0066' d='M41.9,-72.2C51.7,-67,55.1,-50.4,63,-36.5C70.9,-22.5,83.3,-11.3,85.9,1.5C88.5,14.3,81.4,28.6,69.8,36.2C58.2,43.7,42.2,44.6,29.9,52.7C17.5,60.9,8.8,76.3,-2,79.7C-12.7,83.2,-25.5,74.7,-36.9,66C-48.3,57.3,-58.3,48.4,-63.4,37.4C-68.4,26.3,-68.5,13.2,-68.5,0C-68.6,-13.2,-68.6,-26.4,-64.4,-39.1C-60.3,-51.7,-52.1,-63.8,-40.7,-68C-29.2,-72.2,-14.6,-68.5,0.7,-69.7C16.1,-71,32.2,-77.3,41.9,-72.2Z' transform='translate(100 100)' /%3E%3C/svg%3E ");
+  opacity:0.6;
+  position:absolute;
+  left: 60%;
+  width: 40vw;
+}
+
+.card 
+{
+  background: rgba(255,255,255,0.4);
+   border-radius: 10px;
+   border: 1px solid rgba(255,255,255,0.4);
+    position:relative;
+  color:white;
+  z-index:1;
+    backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+
+}
+
+.card-pic 
+{
+  width:12rem;
+background-blend-mode: hard-light; 
+  margin:-20vw auto;
+}
+
+@media(min-width:991px)
+{
+  section 
+  {
+    padding-top:15vw;
+  }
+  section::before 
+  {
+     left: 50%;
+      width: 30vw;
+  }
+  .card-pic 
+  {
+   position:absolute;
+    left:-6vw;
+    top:-5vw;
+    margin:0; 
+  }
+}
+
+h5
+{
+  font-size:1.8rem;
+  font-weight:bold;
+}
+
+h5::after 
+{
+ font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f004";
+  color:#5CF5CB;
+}
+
+.line 
+{
+  width:100%;
+  height:4px;
+  background-color:#5CF5CB;
+  opacity:0.7;
+  margin-bottom:10px;
+}
+
+i
+{
+  position:absolute;
+  right:-2vw;
+  bottom:-4vw;
+  z-index:2;
+  color:white;
+	font-size:3rem;
+  background: rgba(255,255,255,0.3);
+  border: 1px solid rgba(255,255,255,0.2);
+	padding: 1rem;
+	border-radius: 10px;
+	transition: all .6s ease-in-out;
+   backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+@-webkit-keyframes SlowFloat {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-10px); }
+}
+
+@keyframes SlowFloat {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-10px); }
+}
+
+.slowfloat2s {
+    -webkit-animation: SlowFloat 2s infinite  alternate;
+    animation: SlowFloat 2s infinite  alternate;
+}
+
+.slowfloat3s {
+    -webkit-animation: SlowFloat 3s infinite  alternate;
+    animation: SlowFloat 3s infinite  alternate;
+}
+
+@media (max-width: 991px) {
+  section {
+    padding-top: 25vw;
+  }
+  section::before {
+    left: 60%;
+    width: 40vw;
+  }
+  .card-pic {
+    width: 12rem;
+    margin: -20vw auto;
+  }
+  .card {
+    margin-top: 20px;
+  }
+  .navbar {
+    padding: 10px;
+  }
+  .navbar-brand button {
+    width: 100%;
+  }
+  .card-body p {
+    font-size: 14px;
+  }
+  .card-title {
+    font-size: 1.5rem;
+  }
+  .btn {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .card-pic {
+    width: 10rem;
+    margin: -15vw auto;
+  }
+  .card-body p {
+    font-size: 12px;
+  }
+  .card-title {
+    font-size: 1.2rem;
+  }
+  .btn {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+}
+
+  </style>
+  </head>
+  <body>
+    <div class="container">
+    <div class="card text-center" style="margin-top: 80px;">
+      <div class="card-header">
+        <marquee>Selamat Datang Di Website Developer Pemula...</marquee>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Dev Pemula</h5>
+        <p class="card-text">Dev Pemula Sering melakukan streaming di Media Sosial Di Bawah ini.</p>
+        <a href="https://t.me/dev_pemula" class="btn btn-primary">Telegram</a>
+        <a href="https://www.tiktok.com/@dev_pemulaa?_t=8pnTnVzYK8r&_r=1" class="btn btn-primary">Tiktok</a>
+        <a href="https://saweria.co/devpemula" class="btn btn-primary">Donasi</a>
+        <a href="#" class="btn btn-primary">Instagram</a>
+      </div>
+      <div class="card-footer text-body-secondary">
+        2 days ago
+      </div>
+    </div>
+  <section>
+    
+	<div class="container" style="margin-top: -80px;">
+		<div class="row justify-content-center">
+			<div class="col-12 col-md-10">
+        <div class="jelly-card">
+				  <div class="card py-3 ">
+            
+            <div class="row">
+            <div class="col-10 col-md-4 col-lg-3 jelly-bloc text-center text-md-start">
+                <img src="https://www.jellypir.at/CODEPEN/picture/autre/fichier4.png" class="card-img-top card-pic slowfloat2s" alt="meduse">
+              </div>
+                <div class="col-12 col-md-8 col-lg-8">
+                <div class="card-body">
+                  <h5 class="card-title">
+                   Dev Pemula 
+                  </h5>
+                  <div class="line"></div>
+                  <p class="card-text">
+Halo! Nama saya [RAHMADANI], seorang [DEVELOPER] yang berlokasi di [ACEH]. saya telah bekerja pada berbagai proyek yang mencakup [all paymennt ppob dan lain sebagainya].
+<br>
+Saya sangat antusias dalam [Membuat Website, Membuat Aplikasi, Membuat Game,], dan saya selalu berusaha untuk memberikan hasil terbaik dalam setiap pekerjaan yang saya lakukan. Beberapa pencapaian saya termasuk [Aplikasi Android, Website, Aplikasi Desktop,].
+<br>
+Terima kasih telah mengunjungi portofolio saya. Saya berharap dapat bekerja sama dengan Anda di masa depan.
+<br>
+Salam,
+[RAHMADANI]
+</p>
+                   <i class="fas fa-disease slowfloat3s"></i>
+                </div>
+            </div>
+            </div>
+				</div>
+        </div>
+      </div>
+      
+      
+		</div>
+	</div>
+</section>
+
+
+    <nav class="navbar bg-body-tertiary fixed-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="https://saweria.co/devpemula">
+        <button type="button" class="btn btn-outline-primary">Donasi</button></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Dev Pemula</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="bot.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://black463.github.io/web.github.io/button.html">Sosial Media</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Artikel Belajar
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li><a class="dropdown-item" href="https://black463.github.io/web.github.io/web.html">Tutorial & Preferensi</a></li>
+                  </a></li>
+                </ul>
+              </li>
+            </ul>
+            <form class="d-flex mt-3" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <br>
+    <div class="row">
+      <div class="col-sm-6 mb-3 mb-sm-0">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Desain Tampilan Buka Olshop</h5>
+            <p class="card-text">Tersedia Semua Jenis Tampilan Buka Olshop. dan Dapat Dibuat Sesuai Keinginan Anda</p>
+            <a href="https://drive.google.com/uc?export=download&id=1oGdSkZ5O5ZS6AOUB37M5eisV7uIWpZBX" class="btn btn-primary">Demo Apk Buka Olshop</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Desain Tampilan Website</h5>
+            <p class="card-text">Tersedia Semua Jenis Desain Tampilan Website. dan Dapat Dibuat Sesuai Keinginan Anda</p>
+            <a href="#" class="btn btn-primary">Demo Website</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="card">
+      <h4 class="card-header">Alamat</h4>
+      <div class="card-body">
+        <h6 class="card-title">kab. Aceh Timur</h6>
+        <p class="card-text">Ranto Peureulak, jalan medan banda aceh.</p>
+        <a href="#" class="btn btn-primary">Kembali Ke Atas</a>
+      </div>
+    </div>
+<br><br>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  </body>
+</html>
+

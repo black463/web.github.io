@@ -2,18 +2,38 @@
 <html>
 <title>dev pemula</title>
   <script>
-      // Mencegah Ctrl+U
-      document.onkeydown = function(e) {
-          if (e.ctrlKey && (e.keyCode === 85)) {
-              return false;
-          }
-      };
+        // Mencegah Ctrl+U, Ctrl+Shift+I, Ctrl+Shift+J, dan F12
+        document.onkeydown = function(e) {
+            if (e.keyCode == 123) { // F12
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { // Ctrl+Shift+I
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { // Ctrl+Shift+J
+                return false;
+            }
+            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { // Ctrl+U
+                return false;
+            }
+        };
 
-      // Mencegah klik kanan
-      document.addEventListener('contextmenu', function(e) {
-          e.preventDefault();
-      });
-  </script>
+        // Mencegah klik kanan
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        // Mencegah inspect element di mobile
+        document.addEventListener('touchstart', function(e) {
+            if (e.touches.length > 1) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        document.addEventListener('gesturestart', function(e) {
+            e.preventDefault();
+        });
+    </script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <style>

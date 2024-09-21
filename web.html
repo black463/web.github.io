@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html>
 <title>dev pemula</title>
+  <script>
+      // Mencegah Ctrl+U
+      document.onkeydown = function(e) {
+          if (e.ctrlKey && (e.keyCode === 85)) {
+              return false;
+          }
+      };
+
+      // Mencegah klik kanan
+      document.addEventListener('contextmenu', function(e) {
+          e.preventDefault();
+      });
+  </script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <style>

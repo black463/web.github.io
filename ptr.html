@@ -538,11 +538,24 @@
             }, 2000); // Show for 2 seconds
         }
 
-        // Function to copy text to clipboard
+        // Function to copy text to clipboard (using document.execCommand('copy'))
         function copyToClipboard(textToCopy) {
             if (textToCopy) {
-                document.execCommand('copy', false, textToCopy);
-                showCustomAlert('Prompt berhasil disalin!');
+                const textarea = document.createElement('textarea');
+                textarea.value = textToCopy;
+                textarea.style.position = 'fixed'; // Avoid scrolling to bottom
+                textarea.style.left = '-9999px'; // Move out of screen
+                document.body.appendChild(textarea);
+                textarea.select();
+                try {
+                    document.execCommand('copy');
+                    showCustomAlert('Prompt berhasil disalin!');
+                } catch (err) {
+                    console.error('Gagal menyalin prompt: ', err);
+                    showErrorMessage('Gagal menyalin prompt. Browser Anda mungkin tidak mendukung penyalinan otomatis.');
+                } finally {
+                    document.body.removeChild(textarea);
+                }
             }
         }
 

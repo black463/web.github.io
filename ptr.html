@@ -17,6 +17,10 @@
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
         }
+        /* Custom alert animation */
+        .custom-alert {
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
     </style>
 </head>
 <body class="min-h-screen bg-gray-100 p-4">
@@ -124,7 +128,7 @@
                     <label for="sceneTransition" class="text-gray-700 font-medium mb-1">Transisi Adegan:</label>
                     <select id="sceneTransition" class="p-3 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 text-gray-800"></select>
                 </div>
-                <!-- New fields for video background/environment -->
+                <!-- Existing fields for video background/environment -->
                 <div class="flex flex-col">
                     <label for="backgroundEnvironment" class="text-gray-700 font-medium mb-1">Latar Belakang/Lingkungan:</label>
                     <select id="backgroundEnvironment" class="p-3 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 text-gray-800"></select>
@@ -144,6 +148,33 @@
                         class="w-full p-3 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 text-gray-800 shadow-sm resize-y"
                         rows="3"
                         placeholder="Contoh: partikel berkilau, suar lensa, efek glitch, kabut tebal..."
+                    ></textarea>
+                </div>
+                <!-- New fields for narration and dialogue -->
+                <div class="flex flex-col">
+                    <label for="narrationLanguage" class="text-gray-700 font-medium mb-1">Bahasa Narasi:</label>
+                    <select id="narrationLanguage" class="p-3 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 text-gray-800"></select>
+                </div>
+                <div class="flex flex-col md:col-span-1">
+                    <label for="narrationText" class="block text-gray-700 font-medium mb-1">Teks Narasi (Opsional):</label>
+                    <textarea
+                        id="narrationText"
+                        class="w-full p-3 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 text-gray-800 shadow-sm resize-y"
+                        rows="3"
+                        placeholder="Contoh: 'Di tengah hutan, sebuah rahasia kuno tersembunyi...'"
+                    ></textarea>
+                </div>
+                <div class="flex flex-col">
+                    <label for="dialogueLanguage" class="text-gray-700 font-medium mb-1">Bahasa Dialog:</label>
+                    <select id="dialogueLanguage" class="p-3 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 text-gray-800"></select>
+                </div>
+                <div class="flex flex-col md:col-span-1">
+                    <label for="dialogueText" class="block text-gray-700 font-medium mb-1">Percakapan/Dialog (Opsional):</label>
+                    <textarea
+                        id="dialogueText"
+                        class="w-full p-3 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 text-gray-800 shadow-sm resize-y"
+                        rows="3"
+                        placeholder="Contoh: Karakter A: 'Apa yang terjadi di sini?' Karakter B: 'Aku tidak tahu!'"
                     ></textarea>
                 </div>
             </div>
@@ -218,6 +249,11 @@
             <img id="generatedImage" alt="Generated from prompt" class="max-w-full h-auto mx-auto rounded-lg shadow-lg border border-gray-300" />
         </div>
 
+        <!-- Custom Animated Alert (Toast) -->
+        <div id="customAlert" class="fixed bottom-4 left-1/2 -translate-x-1/2 bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg opacity-0 transform scale-95 hidden z-50 custom-alert">
+            Prompt berhasil disalin!
+        </div>
+
         <!-- Gemini Pro Guidelines -->
         <div class="mt-8 p-6 bg-yellow-50 rounded-lg border border-yellow-200 shadow-md">
             <h2 class="text-2xl font-bold text-yellow-800 mb-4 flex items-center">
@@ -231,6 +267,7 @@
                 <li><strong class="text-yellow-900">Komposisi dan Sudut Pandang:</strong> Jelaskan bagaimana subjek diposisikan atau dari sudut mana gambar diambil (misalnya, "potret jarak dekat," "pandangan luas," "sudut rendah").</li>
                 <li><strong class="text-yellow-900">Untuk Video: Gerakan dan Transisi:</strong> Deskripsikan gerakan karakter atau objek (misalnya, "berjalan cepat," "melompat tinggi"), arah kamera (misalnya, "pan kiri," "zoom in," "dolly shot"), dan transisi antar adegan (misalnya, "fade out ke adegan baru"). Tentukan durasi yang diinginkan jika memungkinkan (misalnya, "video berdurasi 10 detik").</li>
                 <li><strong class="text-yellow-900">Untuk Video: Lingkungan dan Efek:</strong> Tambahkan detail tentang latar belakang (misalnya, "hutan lebat," "kota futuristik"), waktu dan musim (misalnya, "malam hari," "musim gugur"), kondisi cuaca (misalnya, "hujan deras," "langit cerah"), dan efek visual khusus (misalnya, "kilauan partikel," "efek asap").</li>
+                <li><strong class="text-yellow-900">Untuk Video: Narasi dan Dialog:</strong> Sertakan teks narasi atau dialog spesifik yang harus ada dalam video, menunjukkan siapa yang berbicara jika ada dialog, dan dalam bahasa apa.</li>
                 <li><strong class="text-yellow-900">Hindari Ambigu:</strong> Pastikan prompt Anda jelas dan tidak ada interpretasi ganda.</li>
                 <li><strong class="text-yellow-900">Gunakan Kata Kunci yang Kuat:</strong> Pilih kata-kata yang menggambarkan visual secara efektif.</li>
                 <li><strong class="text-yellow-900">Ulangi dan Perbaiki:</strong> Jika hasil pertama tidak sesuai, modifikasi prompt Anda dengan lebih banyak detail atau penyesuaian.</li>
@@ -331,6 +368,20 @@
             { label: 'Bersalju', value: 'snowy' }, { label: 'Berkabut', value: 'foggy' }, { label: 'Badai', value: 'stormy' },
             { label: 'Langit Jelas', value: 'clear sky' }, { label: 'Berawan', value: 'cloudy' },
         ];
+        // New options for narration and dialogue language
+        const languageOptions = [
+            { label: 'Pilih Bahasa', value: '' },
+            { label: 'Indonesia', value: 'in Indonesian' },
+            { label: 'English', value: 'in English' },
+            { label: 'Jepang', value: 'in Japanese' },
+            { label: 'Korea', value: 'in Korean' },
+            { label: 'Mandarin', value: 'in Mandarin' },
+            { label: 'Spanyol', value: 'in Spanish' },
+            { label: 'Prancis', value: 'in French' },
+            { label: 'Jerman', value: 'in German' },
+            { label: 'Arab', value: 'in Arabic' },
+            { label: 'Lainnya', value: 'other' } // Option for custom language
+        ];
 
         // Get DOM elements
         const mainPromptInput = document.getElementById('mainPrompt');
@@ -341,6 +392,8 @@
         const generatedImage = document.getElementById('generatedImage');
         const errorMessageDiv = document.getElementById('errorMessage');
         const errorText = document.getElementById('errorText');
+
+        const customAlert = document.getElementById('customAlert'); // Get custom alert element
 
         const copyPromptBtn = document.getElementById('copyPromptBtn');
         const enhancePromptBtn = document.getElementById('enhancePromptBtn');
@@ -373,6 +426,10 @@
         const timeSeasonSelect = document.getElementById('timeSeason');
         const weatherConditionSelect = document.getElementById('weatherCondition');
         const visualEffectsInput = document.getElementById('visualEffects');
+        const narrationTextInput = document.getElementById('narrationText');
+        const dialogueTextInput = document.getElementById('dialogueText');
+        const narrationLanguageSelect = document.getElementById('narrationLanguage');
+        const dialogueLanguageSelect = document.getElementById('dialogueLanguage');
 
 
         // Function to populate dropdowns
@@ -394,17 +451,19 @@
             createOptions(backgroundEnvironmentSelect, backgroundEnvironmentOptions);
             createOptions(timeSeasonSelect, timeSeasonOptions);
             createOptions(weatherConditionSelect, weatherConditionOptions);
+            createOptions(narrationLanguageSelect, languageOptions);
+            createOptions(dialogueLanguageSelect, languageOptions);
         }
 
         // Function to generate the prompt
         function generatePrompt() {
             let parts = [];
-            const mainPromptValue = mainPromptInput.value;
+            const mainPromptValue = mainPromptInput.value.trim(); // Trim whitespace
             if (mainPromptValue) {
                 parts.push(mainPromptValue);
             }
 
-            const faceDetails = [
+            const faceDetailsArray = [
                 faceShapeSelect.value,
                 ageSelect.value,
                 genderPresentationSelect.value,
@@ -415,27 +474,44 @@
                 hairStyleSelect.value,
                 hairColorSelect.value,
                 expressionSelect.value,
-            ].filter(Boolean).join(', ');
+            ].filter(Boolean); // Filter out empty strings
 
-            if (faceDetails) {
-                // Capitalize the first letter of the combined face details
+            if (faceDetailsArray.length > 0) {
+                const faceDetails = faceDetailsArray.join(', ');
+                // Capitalize the first letter of the combined face details if it's the first detail after main prompt
                 parts.push(faceDetails.charAt(0).toUpperCase() + faceDetails.slice(1));
             }
 
-            const videoDetails = [
+            const videoDetailsArray = [
                 videoDurationSelect.value ? `video duration: ${videoDurationSelect.value}` : '',
                 cameraMovementSelect.value ? `camera movement: ${cameraMovementSelect.value}` : '',
-                characterActionInput.value ? `character action: ${characterActionInput.value}` : '',
+                characterActionInput.value.trim() ? `character action: ${characterActionInput.value.trim()}` : '', // Trim whitespace
                 sceneTransitionSelect.value ? `scene transition: ${sceneTransitionSelect.value}` : '',
                 backgroundEnvironmentSelect.value ? `background environment: ${backgroundEnvironmentSelect.value}` : '',
                 timeSeasonSelect.value ? `time/season: ${timeSeasonSelect.value}` : '',
                 weatherConditionSelect.value ? `weather condition: ${weatherConditionSelect.value}` : '',
-                visualEffectsInput.value ? `visual effects: ${visualEffectsInput.value}` : '',
-            ].filter(Boolean).join(', ');
+                visualEffectsInput.value.trim() ? `visual effects: ${visualEffectsInput.value.trim()}` : '', // Trim whitespace
+            ].filter(Boolean); // Filter out empty strings
 
-            if (videoDetails) {
+            // Add narration and dialogue with language
+            const narrationText = narrationTextInput.value.trim();
+            const narrationLanguage = narrationLanguageSelect.value;
+            if (narrationText) {
+                videoDetailsArray.push(`narration ${narrationLanguage}: "${narrationText}"`);
+            }
+
+            const dialogueText = dialogueTextInput.value.trim();
+            const dialogueLanguage = dialogueLanguageSelect.value;
+            if (dialogueText) {
+                videoDetailsArray.push(`dialogue ${dialogueLanguage}: "${dialogueText}"`);
+            }
+            
+            if (videoDetailsArray.length > 0) {
+                const videoDetails = videoDetailsArray.join(', ');
+                // Capitalize the first letter of the combined video details if it's the first detail after main prompt/face details
                 parts.push(videoDetails.charAt(0).toUpperCase() + videoDetails.slice(1));
             }
+
 
             const finalPrompt = parts.join(', ') + '.';
             generatedPromptTextarea.value = finalPrompt;
@@ -445,11 +521,28 @@
             enhancedPromptTextarea.value = '';
         }
 
+        // Function to show custom animated alert
+        function showCustomAlert(message) {
+            customAlert.textContent = message;
+            customAlert.classList.remove('hidden');
+            // Force reflow to ensure transition plays
+            void customAlert.offsetWidth;
+            customAlert.classList.add('opacity-100', 'scale-100');
+
+            setTimeout(() => {
+                customAlert.classList.remove('opacity-100', 'scale-100');
+                customAlert.classList.add('opacity-0', 'scale-95');
+                setTimeout(() => {
+                    customAlert.classList.add('hidden');
+                }, 500); // Wait for fade-out transition to complete before hiding
+            }, 2000); // Show for 2 seconds
+        }
+
         // Function to copy text to clipboard
         function copyToClipboard(textToCopy) {
             if (textToCopy) {
                 document.execCommand('copy', false, textToCopy);
-                alert('Prompt berhasil disalin!');
+                showCustomAlert('Prompt berhasil disalin!');
             }
         }
 
@@ -516,7 +609,8 @@
 
             try {
                 const chatHistory = [];
-                const promptForLLM = `Improve the following image and video generation prompt by adding more details, descriptive adjectives, and artistic elements to make it richer and more effective for generating high-quality visuals. For video, specifically suggest details for motion, camera angles, scene transitions, character actions, background environment, time of day/season, weather conditions, and visual effects. The original prompt is: "${currentPrompt}"`;
+                // Updated prompt for LLM to specifically ask for narration and dialogue language suggestions
+                const promptForLLM = `Improve the following image and video generation prompt by adding more details, descriptive adjectives, and artistic elements to make it richer and more effective for generating high-quality visuals. For video, specifically suggest details for motion, camera angles, scene transitions, character actions, background environment, time of day/season, weather conditions, visual effects, and include suggestions for text narration and character dialogue along with their respective languages if applicable. The original prompt is: "${currentPrompt}"`;
 
                 chatHistory.push({ role: "user", parts: [{ text: promptForLLM }] });
 
@@ -587,7 +681,8 @@
             ageSelect, genderPresentationSelect, faceShapeSelect, eyeTypeSelect, eyeColorSelect,
             noseShapeSelect, lipShapeSelect, hairStyleSelect, hairColorSelect, expressionSelect,
             videoDurationSelect, cameraMovementSelect, characterActionInput, sceneTransitionSelect,
-            backgroundEnvironmentSelect, timeSeasonSelect, weatherConditionSelect, visualEffectsInput
+            backgroundEnvironmentSelect, timeSeasonSelect, weatherConditionSelect, visualEffectsInput,
+            narrationTextInput, dialogueTextInput, narrationLanguageSelect, dialogueLanguageSelect
         ];
 
         inputElements.forEach(element => {

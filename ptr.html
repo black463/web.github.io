@@ -163,6 +163,7 @@
                         rows="3"
                         placeholder="Contoh: 'Di tengah hutan, sebuah rahasia kuno tersembunyi...'"
                     ></textarea>
+                    <span id="narrationCharCount" class="text-gray-500 text-sm mt-1">0/-- karakter</span>
                 </div>
                 <div class="flex flex-col">
                     <label for="dialogueLanguage" class="text-gray-700 font-medium mb-1">Bahasa Dialog:</label>
@@ -176,6 +177,7 @@
                         rows="3"
                         placeholder="Contoh: Karakter A: 'Apa yang terjadi di sini?' Karakter B: 'Aku tidak tahu!'"
                     ></textarea>
+                    <span id="dialogueCharCount" class="text-gray-500 text-sm mt-1">0/-- karakter</span>
                 </div>
             </div>
         </div>
@@ -339,8 +341,12 @@
 
         // Options for video features
         const videoDurationOptions = [
-            { label: 'Pilih Durasi Video', value: '' }, { label: '5 detik', value: '5 seconds' }, { label: '10 detik', value: '10 seconds' },
-            { label: '15 detik', value: '15 seconds' }, { label: '30 detik', value: '30 seconds' }, { label: '1 menit', value: '1 minute' },
+            { label: 'Pilih Durasi Video', value: '', charLimit: '--' },
+            { label: '5 detik', value: '5 seconds', charLimit: 100 },
+            { label: '8 detik', value: '8 seconds', charLimit: 160 }, // Changed from 10 seconds to 8 seconds
+            { label: '15 detik', value: '15 seconds', charLimit: 300 },
+            { label: '30 detik', value: '30 seconds', charLimit: 600 },
+            { label: '1 menit', value: '1 minute', charLimit: 1200 },
         ];
         const cameraMovementOptions = [
             { label: 'Pilih Pergerakan Kamera', value: '' }, { label: 'Statik', value: 'static camera' }, { label: 'Pan Kiri', value: 'pan left' },
@@ -431,6 +437,11 @@
         const narrationLanguageSelect = document.getElementById('narrationLanguage');
         const dialogueLanguageSelect = document.getElementById('dialogueLanguage');
 
+        const narrationCharCount = document.getElementById('narrationCharCount'); // New char count element
+        const dialogueCharCount = document.getElementById('dialogueCharCount');   // New char count element
+
+        // Define API timeout duration
+        const API_TIMEOUT_MS = 8000; // 8 seconds
 
         // Function to populate dropdowns
         function populateDropdowns() {
@@ -453,7 +464,45 @@
             createOptions(weatherConditionSelect, weatherConditionOptions);
             createOptions(narrationLanguageSelect, languageOptions);
             createOptions(dialogueLanguageSelect, languageOptions);
+
+            // Set initial character limits
+            updateCharacterLimits();
         }
+
+        // Function to update character limits for narration/dialogue based on video duration
+        function updateCharacterLimits() {
+            const selectedDurationOption = videoDurationOptions.find(
+                option => option.value === videoDurationSelect.value
+            );
+            const charLimit = selectedDurationOption ? selectedDurationOption.charLimit : '--';
+
+            // Apply max length attribute only if a numerical charLimit is defined
+            narrationTextInput.maxLength = (charLimit !== '--') ? charLimit : null;
+            dialogueTextInput.maxLength = (charLimit !== '--') ? charLimit : null;
+
+            narrationCharCount.textContent = `${narrationTextInput.value.length}/${charLimit} karakter`;
+            dialogueCharCount.textContent = `${dialogueTextInput.value.length}/${charLimit} karakter`;
+        }
+
+        // Event listeners for character count updates
+        narrationTextInput.addEventListener('input', () => {
+            const selectedDurationOption = videoDurationOptions.find(
+                option => option.value === videoDurationSelect.value
+            );
+            const charLimit = selectedDurationOption ? selectedDurationOption.charLimit : '--';
+            narrationCharCount.textContent = `${narrationTextInput.value.length}/${charLimit} karakter`;
+        });
+
+        dialogueTextInput.addEventListener('input', () => {
+            const selectedDurationOption = videoDurationOptions.find(
+                option => option.value === videoDurationSelect.value
+            );
+            const charLimit = selectedDurationOption ? selectedDurationOption.charLimit : '--';
+            dialogueCharCount.textContent = `${dialogueTextInput.value.length}/${charLimit} karakter`;
+        });
+
+        videoDurationSelect.addEventListener('change', updateCharacterLimits);
+
 
         // Function to generate the prompt
         function generatePrompt() {
@@ -577,6 +626,9 @@
             errorMessageDiv.classList.add('hidden');
             imageUrlContainer.classList.add('hidden'); // Hide previous image
 
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), API_TIMEOUT_MS);
+
             try {
                 const payload = { instances: { prompt: promptToUse }, parameters: { "sampleCount": 1 } };
                 const apiKey = ""; // Canvas will automatically provide this
@@ -585,8 +637,11 @@
                 const response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+                    body: JSON.stringify(payload),
+                    signal: controller.signal // Apply the timeout signal
                 });
+
+                clearTimeout(timeoutId); // Clear timeout if response is received in time
 
                 const result = await response.json();
 
@@ -599,7 +654,11 @@
                     console.error('Invalid image generation response:', result);
                 }
             } catch (error) {
-                showErrorMessage('Terjadi kesalahan saat menghasilkan gambar: ' + error.message);
+                if (error.name === 'AbortError') {
+                    showErrorMessage('Waktu respons untuk menghasilkan gambar habis (lebih dari 8 detik). Coba lagi atau sederhanakan prompt.');
+                } else {
+                    showErrorMessage('Terjadi kesalahan saat menghasilkan gambar: ' + error.message);
+                }
                 console.error('Error generating image:', error);
             } finally {
                 setImageLoading(false, generateImageBtn, generateImageBtnText);
@@ -620,6 +679,9 @@
             enhancedPromptContainer.classList.add('hidden');
             enhancedPromptTextarea.value = '';
 
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), API_TIMEOUT_MS);
+
             try {
                 const chatHistory = [];
                 // Updated prompt for LLM to specifically ask for narration and dialogue language suggestions
@@ -634,8 +696,11 @@
                 const response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+                    body: JSON.stringify(payload),
+                    signal: controller.signal // Apply the timeout signal
                 });
+
+                clearTimeout(timeoutId); // Clear timeout if response is received in time
 
                 const result = await response.json();
 
@@ -650,7 +715,11 @@
                     console.error('Invalid LLM response:', result);
                 }
             } catch (error) {
-                showErrorMessage('Terjadi kesalahan saat meningkatkan prompt: ' + error.message);
+                if (error.name === 'AbortError') {
+                    showErrorMessage('Waktu respons untuk peningkatan prompt habis (lebih dari 8 detik). Coba lagi atau sederhanakan prompt.');
+                } else {
+                    showErrorMessage('Terjadi kesalahan saat meningkatkan prompt: ' + error.message);
+                }
                 console.error('Error enhancing prompt:', error);
             } finally {
                 setPromptEnhancementLoading(false, enhancePromptBtn, enhancePromptBtnText);

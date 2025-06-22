@@ -1,1 +1,613 @@
-https://github.com/black463/web.github.io.git
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator Prompt Gambar dan Video Gemini Pro</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .scrollable-content {
+            max-height: 400px; /* Sesuaikan sesuai kebutuhan */
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-100 p-4">
+    <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-xl border border-gray-200">
+        <h1 class="text-4xl font-extrabold text-center text-gray-900 mb-8 tracking-tight">
+            Generator Prompt Gambar dan Video Gemini Pro
+        </h1>
+
+        <!-- Main Prompt Input -->
+        <div class="mb-6">
+            <label for="mainPrompt" class="block text-gray-700 text-lg font-semibold mb-2">
+                Deskripsi Utama Gambar atau Video (Apa yang ingin Anda hasilkan?):
+            </label>
+            <textarea
+                id="mainPrompt"
+                class="w-full p-4 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-gray-800 text-base shadow-sm resize-y"
+                rows="5"
+                placeholder="Contoh: Seorang wanita muda berjalan di taman yang diterangi sinar matahari, Seorang ksatria berdiri di puncak gunung bersalju..."
+            ></textarea>
+        </div>
+
+        <!-- Facial Character Customization -->
+        <div class="mb-8 p-6 bg-blue-50 rounded-lg border border-blue-200 shadow-md">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4 flex items-center">
+                <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                Fitur Karakter Wajah (Opsional)
+            </h2>
+            <p class="text-gray-600 mb-4 text-sm">
+                Gunakan opsi di bawah untuk menyesuaikan fitur wajah karakter dalam prompt Anda untuk gambar atau video.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div class="flex flex-col">
+                    <label for="age" class="text-gray-700 font-medium mb-1">Usia:</label>
+                    <select id="age" class="p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-gray-800"></select>
+                </div>
+                <div class="flex flex-col">
+                    <label for="genderPresentation" class="text-gray-700 font-medium mb-1">Fitur Wajah:</label>
+                    <select id="genderPresentation" class="p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-gray-800"></select>
+                </div>
+                <div class="flex flex-col">
+                    <label for="faceShape" class="text-gray-700 font-medium mb-1">Bentuk Wajah:</label>
+                    <select id="faceShape" class="p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-gray-800"></select>
+                </div>
+                <div class="flex flex-col">
+                    <label for="eyeType" class="text-gray-700 font-medium mb-1">Bentuk Mata:</label>
+                    <select id="eyeType" class="p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-gray-800"></select>
+                </div>
+                <div class="flex flex-col">
+                    <label for="eyeColor" class="text-gray-700 font-medium mb-1">Warna Mata:</label>
+                    <select id="eyeColor" class="p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-gray-800"></select>
+                </div>
+                <div class="flex flex-col">
+                    <label for="noseShape" class="text-gray-700 font-medium mb-1">Bentuk Hidung:</label>
+                    <select id="noseShape" class="p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-gray-800"></select>
+                </div>
+                <div class="flex flex-col">
+                    <label for="lipShape" class="text-gray-700 font-medium mb-1">Bentuk Bibir:</label>
+                    <select id="lipShape" class="p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-gray-800"></select>
+                </div>
+                <div class="flex flex-col">
+                    <label for="hairStyle" class="text-gray-700 font-medium mb-1">Gaya Rambut:</label>
+                    <select id="hairStyle" class="p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-gray-800"></select>
+                </div>
+                <div class="flex flex-col">
+                    <label for="hairColor" class="text-gray-700 font-medium mb-1">Warna Rambut:</label>
+                    <select id="hairColor" class="p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-gray-800"></select>
+                </div>
+                <div class="flex flex-col">
+                    <label for="expression" class="text-gray-700 font-medium mb-1">Ekspresi:</label>
+                    <select id="expression" class="p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-gray-800"></select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Video Specific Features -->
+        <div class="mb-8 p-6 bg-green-50 rounded-lg border border-green-200 shadow-md">
+            <h2 class="text-2xl font-bold text-green-800 mb-4 flex items-center">
+                <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14m-5 3v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5a2 2 0 012-2h2a2 2 0 012 2zM9 1h6a2 2 0 012 2v2H7V3a2 2 0 012-2z"></path></svg>
+                Fitur Video (Opsional)
+            </h2>
+            <p class="text-gray-600 mb-4 text-sm">
+                Gunakan opsi di bawah untuk menambahkan detail khusus video ke prompt Anda.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="flex flex-col">
+                    <label for="videoDuration" class="text-gray-700 font-medium mb-1">Durasi Video:</label>
+                    <select id="videoDuration" class="p-3 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 text-gray-800"></select>
+                </div>
+                <div class="flex flex-col">
+                    <label for="cameraMovement" class="text-gray-700 font-medium mb-1">Pergerakan Kamera:</label>
+                    <select id="cameraMovement" class="p-3 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 text-gray-800"></select>
+                </div>
+                <div class="flex flex-col md:col-span-2">
+                    <label for="characterAction" class="block text-gray-700 font-medium mb-1">Aksi Karakter/Objek:</label>
+                    <textarea
+                        id="characterAction"
+                        class="w-full p-3 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 text-gray-800 shadow-sm resize-y"
+                        rows="3"
+                        placeholder="Contoh: berlari kencang, menari dengan gembira, berinteraksi dengan hewan peliharaan..."
+                    ></textarea>
+                </div>
+                <div class="flex flex-col">
+                    <label for="sceneTransition" class="text-gray-700 font-medium mb-1">Transisi Adegan:</label>
+                    <select id="sceneTransition" class="p-3 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 text-gray-800"></select>
+                </div>
+                <!-- New fields for video background/environment -->
+                <div class="flex flex-col">
+                    <label for="backgroundEnvironment" class="text-gray-700 font-medium mb-1">Latar Belakang/Lingkungan:</label>
+                    <select id="backgroundEnvironment" class="p-3 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 text-gray-800"></select>
+                </div>
+                <div class="flex flex-col">
+                    <label for="timeSeason" class="text-gray-700 font-medium mb-1">Waktu/Musim:</label>
+                    <select id="timeSeason" class="p-3 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 text-gray-800"></select>
+                </div>
+                <div class="flex flex-col">
+                    <label for="weatherCondition" class="text-gray-700 font-medium mb-1">Kondisi Cuaca:</label>
+                    <select id="weatherCondition" class="p-3 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 text-gray-800"></select>
+                </div>
+                <div class="flex flex-col md:col-span-2">
+                    <label for="visualEffects" class="block text-gray-700 font-medium mb-1">Efek Visual (Deskripsi Bebas):</label>
+                    <textarea
+                        id="visualEffects"
+                        class="w-full p-3 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500 text-gray-800 shadow-sm resize-y"
+                        rows="3"
+                        placeholder="Contoh: partikel berkilau, suar lensa, efek glitch, kabut tebal..."
+                    ></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Generated Prompt Output -->
+        <div class="mb-6">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Prompt yang Dihasilkan:</h2>
+            <textarea
+                id="generatedPrompt"
+                readonly
+                class="w-full p-4 border border-gray-300 rounded-lg bg-gray-50 text-gray-800 text-base font-mono shadow-sm resize-y"
+                rows="6"
+                placeholder="Prompt Anda akan muncul di sini..."
+            ></textarea>
+            <button
+                id="copyPromptBtn"
+                class="mt-4 px-6 py-3 bg-green-600 text-white font-bold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-200 ease-in-out transform hover:scale-105"
+            >
+                Salin Prompt
+            </button>
+            <button
+                id="enhancePromptBtn"
+                class="mt-4 ml-4 px-6 py-3 bg-teal-600 text-white font-bold rounded-lg shadow-md hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 transition duration-200 ease-in-out transform hover:scale-105"
+            >
+                <span id="enhancePromptBtnText">✨ Tingkatkan Prompt ✨</span>
+            </button>
+            <button
+                id="generateImageBtn"
+                class="mt-4 ml-4 px-6 py-3 bg-purple-600 text-white font-bold rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition duration-200 ease-in-out transform hover:scale-105"
+            >
+                <span id="generateImageBtnText">Hasilkan Contoh Gambar</span>
+            </button>
+        </div>
+
+        <!-- Enhanced Prompt Output -->
+        <div id="enhancedPromptContainer" class="mb-6 p-6 bg-indigo-50 rounded-lg border border-indigo-200 shadow-md hidden">
+            <h2 class="text-2xl font-bold text-indigo-800 mb-4 flex items-center">
+                <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 17v5m6.447-15.004L12 9.295l-6.447-3.249L12 2.5l6.447 3.249zM12 14.5l-6.447 3.249L12 21.5l6.447-3.249L12 14.5z"></path></svg>
+                Prompt yang Ditingkatkan (oleh Gemini Flash)
+            </h2>
+            <textarea
+                id="enhancedPrompt"
+                readonly
+                class="w-full p-4 border border-gray-300 rounded-lg bg-gray-50 text-gray-800 text-base font-mono shadow-sm resize-y"
+                rows="6"
+                placeholder="Prompt yang ditingkatkan akan muncul di sini..."
+            ></textarea>
+            <button
+                id="copyEnhancedPromptBtn"
+                class="mt-4 px-6 py-3 bg-blue-600 text-white font-bold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200 ease-in-out transform hover:scale-105"
+            >
+                Salin Prompt yang Ditingkatkan
+            </button>
+            <button
+                id="generateImageFromEnhancedBtn"
+                class="mt-4 ml-4 px-6 py-3 bg-purple-600 text-white font-bold rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition duration-200 ease-in-out transform hover:scale-105"
+            >
+                <span id="generateImageFromEnhancedBtnText">Hasilkan Gambar dari Prompt Ditingkatkan</span>
+            </button>
+        </div>
+
+        <!-- Error Message Display -->
+        <div id="errorMessage" class="p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg mb-6 hidden" role="alert">
+            <p class="font-bold">Error:</p>
+            <p id="errorText"></p>
+        </div>
+
+        <!-- Generated Image Display -->
+        <div id="imageUrlContainer" class="mb-6 text-center hidden">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Gambar yang Dihasilkan:</h2>
+            <img id="generatedImage" alt="Generated from prompt" class="max-w-full h-auto mx-auto rounded-lg shadow-lg border border-gray-300" />
+        </div>
+
+        <!-- Gemini Pro Guidelines -->
+        <div class="mt-8 p-6 bg-yellow-50 rounded-lg border border-yellow-200 shadow-md">
+            <h2 class="text-2xl font-bold text-yellow-800 mb-4 flex items-center">
+                <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13c1.168-.777 2.754-1.253 4.5-1.253s3.332.476 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5s3.332.477 4.5 1.253v13c-1.168-.777-2.754-1.253-4.5-1.253s-3.332.476-4.5 1.253"></path></svg>
+                Tips untuk Prompt Gambar dan Video Gemini Pro
+            </h2>
+            <ul class="list-disc list-inside text-gray-700 text-base space-y-2">
+                <li><strong class="text-yellow-900">Spesifik dan Detail:</strong> Semakin detail prompt Anda, semakin baik hasilnya. Jelaskan subjek, latar belakang, pencahayaan, gaya, dan suasana hati.</li>
+                <li><strong class="text-yellow-900">Gaya Seni:</strong> Tentukan gaya yang Anda inginkan (misalnya, "gaya fotografi," "cat minyak," "gambar sketsa," "seni digital," "anime," "realistis").</li>
+                <li><strong class="text-yellow-900">Pencahayaan dan Suasana:</strong> Sertakan detail pencahayaan (misalnya, "cahaya keemasan senja," "pencahayaan dramatis," "neon terang") dan suasana hati (misalnya, "menenangkan," "misterius," "cerah").</li>
+                <li><strong class="text-yellow-900">Komposisi dan Sudut Pandang:</strong> Jelaskan bagaimana subjek diposisikan atau dari sudut mana gambar diambil (misalnya, "potret jarak dekat," "pandangan luas," "sudut rendah").</li>
+                <li><strong class="text-yellow-900">Untuk Video: Gerakan dan Transisi:</strong> Deskripsikan gerakan karakter atau objek (misalnya, "berjalan cepat," "melompat tinggi"), arah kamera (misalnya, "pan kiri," "zoom in," "dolly shot"), dan transisi antar adegan (misalnya, "fade out ke adegan baru"). Tentukan durasi yang diinginkan jika memungkinkan (misalnya, "video berdurasi 10 detik").</li>
+                <li><strong class="text-yellow-900">Untuk Video: Lingkungan dan Efek:</strong> Tambahkan detail tentang latar belakang (misalnya, "hutan lebat," "kota futuristik"), waktu dan musim (misalnya, "malam hari," "musim gugur"), kondisi cuaca (misalnya, "hujan deras," "langit cerah"), dan efek visual khusus (misalnya, "kilauan partikel," "efek asap").</li>
+                <li><strong class="text-yellow-900">Hindari Ambigu:</strong> Pastikan prompt Anda jelas dan tidak ada interpretasi ganda.</li>
+                <li><strong class="text-yellow-900">Gunakan Kata Kunci yang Kuat:</strong> Pilih kata-kata yang menggambarkan visual secara efektif.</li>
+                <li><strong class="text-yellow-900">Ulangi dan Perbaiki:</strong> Jika hasil pertama tidak sesuai, modifikasi prompt Anda dengan lebih banyak detail atau penyesuaian.</li>
+                <li><strong class="text-yellow-900">Hindari Konten Terlarang:</strong> Pastikan prompt Anda tidak melanggar pedoman keamanan atau etika.</li>
+            </ul>
+            <p class="text-sm text-gray-500 mt-4">
+                *Catatan: Fitur "Hasilkan Contoh Gambar" saat ini menggunakan model Imagen yang utamanya menghasilkan gambar diam. Kemampuan untuk menghasilkan video secara langsung melalui API ini mungkin memerlukan model atau konfigurasi yang berbeda.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Helper function to create option elements
+        function createOptions(selectElement, options) {
+            selectElement.innerHTML = ''; // Clear existing options
+            options.forEach(optionData => {
+                const option = document.createElement('option');
+                option.value = optionData.value;
+                option.textContent = optionData.label;
+                selectElement.appendChild(option);
+            });
+        }
+
+        // Define options for facial features
+        const faceShapeOptions = [
+            { label: 'Pilih Bentuk Wajah', value: '' }, { label: 'Oval', value: 'oval face' }, { label: 'Bulat', value: 'round face' },
+            { label: 'Kotak', value: 'square face' }, { label: 'Hati', value: 'heart-shaped face' }, { label: 'Panjang', value: 'long face' },
+        ];
+        const eyeTypeOptions = [
+            { label: 'Pilih Bentuk Mata', value: '' }, { label: 'Almond', value: 'almond-shaped eyes' }, { label: 'Bulat', value: 'round eyes' },
+            { label: 'Sipit', value: 'slanted eyes' }, { label: 'Monolid', value: 'monolid eyes' }, { label: 'Hooded', value: 'hooded eyes' },
+        ];
+        const eyeColorOptions = [
+            { label: 'Pilih Warna Mata', value: '' }, { label: 'Biru', value: 'blue eyes' }, { label: 'Coklat', value: 'brown eyes' },
+            { label: 'Hijau', value: 'green eyes' }, { label: 'Abu-abu', value: 'gray eyes' }, { label: 'Hazel', value: 'hazel eyes' },
+        ];
+        const noseShapeOptions = [
+            { label: 'Pilih Bentuk Hidung', value: '' }, { label: 'Kecil', value: 'small nose' }, { label: 'Mancung', value: 'pointed nose' },
+            { label: 'Lebar', value: 'wide nose' }, { label: 'Datar', value: 'flat nose' }, { label: 'Roman', value: 'roman nose' },
+            { label: 'Nubian', value: 'nubian nose' },
+        ];
+        const lipShapeOptions = [
+            { label: 'Pilih Bentuk Bibir', value: '' }, { label: 'Tipis', value: 'thin lips' }, { label: 'Penuh', value: 'full lips' },
+            { label: 'Bentuk Hati', value: 'heart-shaped lips' }, { label: 'Cupid Bow', value: 'cupid\'s bow lips' },
+        ];
+        const hairStyleOptions = [
+            { label: 'Pilih Gaya Rambut', value: '' }, { label: 'Lurus', value: 'straight hair' }, { label: 'Keriting', value: 'curly hair' },
+            { label: 'Bergelombang', value: 'wavy hair' }, { label: 'Pendek', value: 'short hair' }, { label: 'Panjang', value: 'long hair' },
+            { label: 'Kepang', value: 'braided hair' }, { label: 'Kuncir Kuda', value: 'ponytail' },
+        ];
+        const hairColorOptions = [
+            { label: 'Pilih Warna Rambut', value: '' }, { label: 'Hitam', value: 'black hair' }, { label: 'Coklat', value: 'brown hair' },
+            { label: 'Pirang', value: 'blonde hair' }, { label: 'Merah', value: 'red hair' }, { label: 'Abu-abu', value: 'gray hair' },
+            { label: 'Putih', value: 'white hair' },
+        ];
+        const expressionOptions = [
+            { label: 'Pilih Ekspresi', value: '' }, { label: 'Senyum', value: 'smiling' }, { label: 'Serius', value: 'serious expression' },
+            { label: 'Sedih', value: 'sad expression' }, { label: 'Terkejut', value: 'surprised expression' }, { label: 'Marah', value: 'angry expression' },
+            { label: 'Netral', value: 'neutral expression' },
+        ];
+        const ageOptions = [
+            { label: 'Pilih Usia', value: '' }, { label: 'Anak-anak', value: 'child' }, { label: 'Remaja', value: 'teenager' },
+            { label: 'Dewasa Muda', value: 'young adult' }, { label: 'Paruh Baya', value: 'middle-aged' }, { label: 'Tua', value: 'elderly' },
+        ];
+        const genderPresentationOptions = [
+            { label: 'Pilih Fitur Wajah', value: '' }, { label: 'Feminin', value: 'feminine features' }, { label: 'Maskulin', value: 'masculine features' },
+            { label: 'Netral Gender', value: 'gender-neutral features' },
+        ];
+
+        // Options for video features
+        const videoDurationOptions = [
+            { label: 'Pilih Durasi Video', value: '' }, { label: '5 detik', value: '5 seconds' }, { label: '10 detik', value: '10 seconds' },
+            { label: '15 detik', value: '15 seconds' }, { label: '30 detik', value: '30 seconds' }, { label: '1 menit', value: '1 minute' },
+        ];
+        const cameraMovementOptions = [
+            { label: 'Pilih Pergerakan Kamera', value: '' }, { label: 'Statik', value: 'static camera' }, { label: 'Pan Kiri', value: 'pan left' },
+            { label: 'Pan Kanan', value: 'pan right' }, { label: 'Tilt Atas', value: 'tilt up' }, { label: 'Tilt Bawah', value: 'tilt down' },
+            { label: 'Zoom In', value: 'zoom in' }, { label: 'Zoom Out', value: 'zoom out' }, { label: 'Pelacakan (Tracking Shot)', value: 'tracking shot' },
+            { label: 'Dolly Shot', value: 'dolly shot' }, { label: 'Pemandangan Udara (Aerial View)', value: 'aerial view' },
+        ];
+        const sceneTransitionOptions = [
+            { label: 'Pilih Transisi Adegan', value: '' }, { label: 'Potong (Cut)', value: 'cut' }, { label: 'Fade In/Out', value: 'fade in and out' },
+            { label: 'Dissolve', value: 'dissolve' }, { label: 'Wipe', value: 'wipe transition' },
+        ];
+        const backgroundEnvironmentOptions = [
+            { label: 'Pilih Latar Belakang/Lingkungan', value: '' }, { label: 'Jalanan Kota', value: 'urban street' }, { label: 'Hutan Lebat', value: 'lush forest' },
+            { label: 'Kota Futuristik', value: 'futuristic city' }, { label: 'Reruntuhan Kuno', value: 'ancient ruins' }, { label: 'Bawah Air', value: 'underwater' },
+            { label: 'Luar Angkasa', value: 'outer space' }, { label: 'Kafe Nyaman', value: 'cozy cafe' }, { label: 'Pemandangan Fantasi', value: 'fantasy landscape' },
+            { label: 'Gurun Pasir', value: 'sandy desert' }, { label: 'Pegunungan Bersalju', value: 'snowy mountains' },
+        ];
+        const timeSeasonOptions = [
+            { label: 'Pilih Waktu/Musim', value: '' }, { label: 'Siang Hari', value: 'daytime' }, { label: 'Malam Hari', value: 'nighttime' },
+            { label: 'Fajar', value: 'dawn' }, { label: 'Senja', value: 'dusk' }, { label: 'Musim Semi', value: 'spring' },
+            { label: 'Musim Panas', value: 'summer' }, { label: 'Musim Gugur', value: 'autumn' }, { label: 'Musim Dingin', value: 'winter' },
+        ];
+        const weatherConditionOptions = [
+            { label: 'Pilih Kondisi Cuaca', value: '' }, { label: 'Cerah', value: 'sunny' }, { label: 'Hujan', value: 'rainy' },
+            { label: 'Bersalju', value: 'snowy' }, { label: 'Berkabut', value: 'foggy' }, { label: 'Badai', value: 'stormy' },
+            { label: 'Langit Jelas', value: 'clear sky' }, { label: 'Berawan', value: 'cloudy' },
+        ];
+
+        // Get DOM elements
+        const mainPromptInput = document.getElementById('mainPrompt');
+        const generatedPromptTextarea = document.getElementById('generatedPrompt');
+        const enhancedPromptTextarea = document.getElementById('enhancedPrompt');
+        const enhancedPromptContainer = document.getElementById('enhancedPromptContainer');
+        const imageUrlContainer = document.getElementById('imageUrlContainer');
+        const generatedImage = document.getElementById('generatedImage');
+        const errorMessageDiv = document.getElementById('errorMessage');
+        const errorText = document.getElementById('errorText');
+
+        const copyPromptBtn = document.getElementById('copyPromptBtn');
+        const enhancePromptBtn = document.getElementById('enhancePromptBtn');
+        const enhancePromptBtnText = document.getElementById('enhancePromptBtnText');
+        const generateImageBtn = document.getElementById('generateImageBtn');
+        const generateImageBtnText = document.getElementById('generateImageBtnText');
+
+        const copyEnhancedPromptBtn = document.getElementById('copyEnhancedPromptBtn');
+        const generateImageFromEnhancedBtn = document.getElementById('generateImageFromEnhancedBtn');
+        const generateImageFromEnhancedBtnText = document.getElementById('generateImageFromEnhancedBtnText');
+
+        // Select elements for facial features
+        const ageSelect = document.getElementById('age');
+        const genderPresentationSelect = document.getElementById('genderPresentation');
+        const faceShapeSelect = document.getElementById('faceShape');
+        const eyeTypeSelect = document.getElementById('eyeType');
+        const eyeColorSelect = document.getElementById('eyeColor');
+        const noseShapeSelect = document.getElementById('noseShape');
+        const lipShapeSelect = document.getElementById('lipShape');
+        const hairStyleSelect = document.getElementById('hairStyle');
+        const hairColorSelect = document.getElementById('hairColor');
+        const expressionSelect = document.getElementById('expression');
+
+        // Select elements for video features
+        const videoDurationSelect = document.getElementById('videoDuration');
+        const cameraMovementSelect = document.getElementById('cameraMovement');
+        const characterActionInput = document.getElementById('characterAction');
+        const sceneTransitionSelect = document.getElementById('sceneTransition');
+        const backgroundEnvironmentSelect = document.getElementById('backgroundEnvironment');
+        const timeSeasonSelect = document.getElementById('timeSeason');
+        const weatherConditionSelect = document.getElementById('weatherCondition');
+        const visualEffectsInput = document.getElementById('visualEffects');
+
+
+        // Function to populate dropdowns
+        function populateDropdowns() {
+            createOptions(ageSelect, ageOptions);
+            createOptions(genderPresentationSelect, genderPresentationOptions);
+            createOptions(faceShapeSelect, faceShapeOptions);
+            createOptions(eyeTypeSelect, eyeTypeOptions);
+            createOptions(eyeColorSelect, eyeColorOptions);
+            createOptions(noseShapeSelect, noseShapeOptions);
+            createOptions(lipShapeSelect, lipShapeOptions);
+            createOptions(hairStyleSelect, hairStyleOptions);
+            createOptions(hairColorSelect, hairColorOptions);
+            createOptions(expressionSelect, expressionOptions);
+
+            createOptions(videoDurationSelect, videoDurationOptions);
+            createOptions(cameraMovementSelect, cameraMovementOptions);
+            createOptions(sceneTransitionSelect, sceneTransitionOptions);
+            createOptions(backgroundEnvironmentSelect, backgroundEnvironmentOptions);
+            createOptions(timeSeasonSelect, timeSeasonOptions);
+            createOptions(weatherConditionSelect, weatherConditionOptions);
+        }
+
+        // Function to generate the prompt
+        function generatePrompt() {
+            let parts = [];
+            const mainPromptValue = mainPromptInput.value;
+            if (mainPromptValue) {
+                parts.push(mainPromptValue);
+            }
+
+            const faceDetails = [
+                faceShapeSelect.value,
+                ageSelect.value,
+                genderPresentationSelect.value,
+                eyeTypeSelect.value,
+                eyeColorSelect.value,
+                noseShapeSelect.value,
+                lipShapeSelect.value,
+                hairStyleSelect.value,
+                hairColorSelect.value,
+                expressionSelect.value,
+            ].filter(Boolean).join(', ');
+
+            if (faceDetails) {
+                // Capitalize the first letter of the combined face details
+                parts.push(faceDetails.charAt(0).toUpperCase() + faceDetails.slice(1));
+            }
+
+            const videoDetails = [
+                videoDurationSelect.value ? `video duration: ${videoDurationSelect.value}` : '',
+                cameraMovementSelect.value ? `camera movement: ${cameraMovementSelect.value}` : '',
+                characterActionInput.value ? `character action: ${characterActionInput.value}` : '',
+                sceneTransitionSelect.value ? `scene transition: ${sceneTransitionSelect.value}` : '',
+                backgroundEnvironmentSelect.value ? `background environment: ${backgroundEnvironmentSelect.value}` : '',
+                timeSeasonSelect.value ? `time/season: ${timeSeasonSelect.value}` : '',
+                weatherConditionSelect.value ? `weather condition: ${weatherConditionSelect.value}` : '',
+                visualEffectsInput.value ? `visual effects: ${visualEffectsInput.value}` : '',
+            ].filter(Boolean).join(', ');
+
+            if (videoDetails) {
+                parts.push(videoDetails.charAt(0).toUpperCase() + videoDetails.slice(1));
+            }
+
+            const finalPrompt = parts.join(', ') + '.';
+            generatedPromptTextarea.value = finalPrompt;
+            imageUrlContainer.classList.add('hidden'); // Hide previous image
+            errorMessageDiv.classList.add('hidden'); // Hide previous error
+            enhancedPromptContainer.classList.add('hidden'); // Hide enhanced prompt
+            enhancedPromptTextarea.value = '';
+        }
+
+        // Function to copy text to clipboard
+        function copyToClipboard(textToCopy) {
+            if (textToCopy) {
+                document.execCommand('copy', false, textToCopy);
+                alert('Prompt berhasil disalin!');
+            }
+        }
+
+        // Function to display error message
+        function showErrorMessage(message) {
+            errorMessageDiv.classList.remove('hidden');
+            errorText.textContent = message;
+        }
+
+        // Function to generate image
+        async function generateImage(promptToUse) {
+            if (!promptToUse) {
+                showErrorMessage('Silakan hasilkan prompt terlebih dahulu.');
+                return;
+            }
+
+            setImageLoading(true, generateImageBtn, generateImageBtnText);
+            setImageLoading(true, generateImageFromEnhancedBtn, generateImageFromEnhancedBtnText);
+            errorMessageDiv.classList.add('hidden');
+            imageUrlContainer.classList.add('hidden'); // Hide previous image
+
+            try {
+                const payload = { instances: { prompt: promptToUse }, parameters: { "sampleCount": 1 } };
+                const apiKey = ""; // Canvas will automatically provide this
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (result.predictions && result.predictions.length > 0 && result.predictions[0].bytesBase64Encoded) {
+                    const url = `data:image/png;base64,${result.predictions[0].bytesBase64Encoded}`;
+                    generatedImage.src = url;
+                    imageUrlContainer.classList.remove('hidden');
+                } else {
+                    showErrorMessage('Gagal menghasilkan gambar. Respon tidak valid.');
+                    console.error('Invalid image generation response:', result);
+                }
+            } catch (error) {
+                showErrorMessage('Terjadi kesalahan saat menghasilkan gambar: ' + error.message);
+                console.error('Error generating image:', error);
+            } finally {
+                setImageLoading(false, generateImageBtn, generateImageBtnText);
+                setImageLoading(false, generateImageFromEnhancedBtn, generateImageFromEnhancedBtnText);
+            }
+        }
+
+        // Function to enhance prompt using LLM
+        async function enhancePrompt() {
+            const currentPrompt = generatedPromptTextarea.value;
+            if (!currentPrompt) {
+                showErrorMessage('Tidak ada prompt untuk ditingkatkan. Silakan buat prompt terlebih dahulu.');
+                return;
+            }
+
+            setPromptEnhancementLoading(true, enhancePromptBtn, enhancePromptBtnText);
+            errorMessageDiv.classList.add('hidden');
+            enhancedPromptContainer.classList.add('hidden');
+            enhancedPromptTextarea.value = '';
+
+            try {
+                const chatHistory = [];
+                const promptForLLM = `Improve the following image and video generation prompt by adding more details, descriptive adjectives, and artistic elements to make it richer and more effective for generating high-quality visuals. For video, specifically suggest details for motion, camera angles, scene transitions, character actions, background environment, time of day/season, weather conditions, and visual effects. The original prompt is: "${currentPrompt}"`;
+
+                chatHistory.push({ role: "user", parts: [{ text: promptForLLM }] });
+
+                const payload = { contents: chatHistory };
+                const apiKey = ""; // Canvas will automatically provide this
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const text = result.candidates[0].content.parts[0].text;
+                    enhancedPromptTextarea.value = text;
+                    enhancedPromptContainer.classList.remove('hidden');
+                } else {
+                    showErrorMessage('Gagal meningkatkan prompt. Respon LLM tidak valid.');
+                    console.error('Invalid LLM response:', result);
+                }
+            } catch (error) {
+                showErrorMessage('Terjadi kesalahan saat meningkatkan prompt: ' + error.message);
+                console.error('Error enhancing prompt:', error);
+            } finally {
+                setPromptEnhancementLoading(false, enhancePromptBtn, enhancePromptBtnText);
+            }
+        }
+
+        // Loading state management for buttons
+        function setImageLoading(isLoading, buttonElement, buttonTextElement) {
+            if (isLoading) {
+                buttonElement.disabled = true;
+                buttonTextElement.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                </svg> Menghasilkan...`;
+            } else {
+                buttonElement.disabled = false;
+                if (buttonElement.id === 'generateImageBtn') {
+                    buttonTextElement.textContent = 'Hasilkan Contoh Gambar';
+                } else if (buttonElement.id === 'generateImageFromEnhancedBtn') {
+                    buttonTextElement.textContent = 'Hasilkan Gambar dari Prompt Ditingkatkan';
+                }
+            }
+        }
+
+        function setPromptEnhancementLoading(isLoading, buttonElement, buttonTextElement) {
+            if (isLoading) {
+                buttonElement.disabled = true;
+                buttonTextElement.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                </svg> Meningkatkan...`;
+            } else {
+                buttonElement.disabled = false;
+                buttonTextElement.textContent = '✨ Tingkatkan Prompt ✨';
+            }
+        }
+
+        // Event Listeners for input changes to regenerate prompt
+        const inputElements = [
+            mainPromptInput,
+            ageSelect, genderPresentationSelect, faceShapeSelect, eyeTypeSelect, eyeColorSelect,
+            noseShapeSelect, lipShapeSelect, hairStyleSelect, hairColorSelect, expressionSelect,
+            videoDurationSelect, cameraMovementSelect, characterActionInput, sceneTransitionSelect,
+            backgroundEnvironmentSelect, timeSeasonSelect, weatherConditionSelect, visualEffectsInput
+        ];
+
+        inputElements.forEach(element => {
+            element.addEventListener('input', generatePrompt);
+        });
+
+        // Event Listeners for buttons
+        copyPromptBtn.addEventListener('click', () => copyToClipboard(generatedPromptTextarea.value));
+        enhancePromptBtn.addEventListener('click', enhancePrompt);
+        generateImageBtn.addEventListener('click', () => generateImage(generatedPromptTextarea.value));
+
+        copyEnhancedPromptBtn.addEventListener('click', () => copyToClipboard(enhancedPromptTextarea.value));
+        generateImageFromEnhancedBtn.addEventListener('click', () => generateImage(enhancedPromptTextarea.value));
+
+        // Initialize dropdowns and generate initial prompt on page load
+        window.onload = function() {
+            populateDropdowns();
+            generatePrompt();
+        };
+
+    </script>
+</body>
+</html>

@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="id">
+<!DOCTYPE html>
+<html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,6 +32,7 @@
       margin-top: 5px;
       border-radius: 5px;
       border: 1px solid #ccc;
+      box-sizing: border-box;
     }
     button {
       margin-top: 20px;
@@ -46,78 +48,115 @@
       background: #eef;
       padding: 15px;
       border-radius: 5px;
+      position: relative;
+      overflow-x: auto;
+    }
+    #output pre {
+      margin: 0;
       white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    #copyBtn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #2ecc71;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+    #alertBox {
+      display: none;
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #2ecc71;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      z-index: 1000;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Generator Prompt Video Promosi Produk</h1><label for="judul">Nama Produk</label>
-<input type="text" id="judul" placeholder="Contoh: NR Payment">
+    <h1>Generator Prompt Video Promosi Produk</h1>
 
-<label for="jenis">Jenis Produk</label>
-<input type="text" id="jenis" placeholder="Contoh: Aplikasi top-up dan e-wallet">
+    <label for="judul">Nama Produk</label>
+    <input type="text" id="judul" placeholder="Contoh: NR Payment">
 
-<label for="tujuan">Tujuan Promosi</label>
-<input type="text" id="tujuan" placeholder="Contoh: Meningkatkan unduhan aplikasi">
+    <label for="jenis">Jenis Produk</label>
+    <input type="text" id="jenis" placeholder="Contoh: Aplikasi top-up dan e-wallet">
 
-<label for="fitur">Fitur Utama Produk</label>
-<input type="text" id="fitur" placeholder="Contoh: Top-up game, pembayaran PLN, saldo e-wallet">
+    <label for="tujuan">Tujuan Promosi</label>
+    <input type="text" id="tujuan" placeholder="Contoh: Meningkatkan unduhan aplikasi">
 
-<label for="cta">Call to Action</label>
-<input type="text" id="cta" placeholder="Contoh: Download sekarang di Play Store!">
+    <label for="fitur">Fitur Utama Produk</label>
+    <input type="text" id="fitur" placeholder="Contoh: Top-up game, pembayaran PLN, saldo e-wallet">
 
-<label for="dialog">Dialog Pendukung (opsional)</label>
-<textarea id="dialog" rows="3" placeholder="Contoh:
+    <label for="cta">Call to Action</label>
+    <input type="text" id="cta" placeholder="Contoh: Download sekarang di Play Store!">
 
-User: Di mana tempat top-up tercepat? CS: Pakai NR Payment dong!"></textarea>
+    <label for="dialog">Dialog Pendukung (opsional)</label>
+    <textarea id="dialog" rows="3" placeholder="Contoh:
+User: Di mana tempat top-up tercepat?
+CS: Pakai NR Payment dong!"></textarea>
 
-<button onclick="generatePrompt()">Buat Prompt</button>
+    <button onclick="generatePrompt()">Buat Prompt</button>
 
-<div id="output"></div>
+    <div id="output"></div>
+  </div>
 
-  </div>  <script>
+  <div id="alertBox">Prompt berhasil disalin!</div>
+
+  <script>
     function generatePrompt() {
       const judul = document.getElementById('judul').value;
-      const jenis = document.getElementById('jenis').value.toLowerCase();
+      const jenis = document.getElementById('jenis').value;
       const tujuan = document.getElementById('tujuan').value;
       const fitur = document.getElementById('fitur').value;
       const cta = document.getElementById('cta').value;
       const dialog = document.getElementById('dialog').value;
 
-      let visualCue = "";
-      if (jenis.includes("ebook")) {
-        visualCue = "📖 Visual: Karakter sedang memegang eBook (tablet atau buku digital) dan membacanya dengan ekspresi antusias.";
-      } else if (jenis.includes("aplikasi")) {
-        visualCue = "📱 Visual: Karakter sedang memegang smartphone dan menggunakan aplikasi dengan tampilan antarmuka menarik.";
-      } else {
-        visualCue = "🎥 Visual: Karakter memperagakan penggunaan produk dengan ekspresi puas dan semangat.";
-      }
-
       let prompt = "";
+      prompt += `🎬 Judul: Promosi ${judul}\n`;
+      prompt += `📌 Tema: Iklan cepat dan profesional\n`;
+      prompt += `🧩 Jenis Produk: ${jenis}\n`;
+      prompt += `🎯 Tujuan: ${tujuan}\n`;
+      prompt += `💡 Fitur Utama: ${fitur}\n`;
+      prompt += `🎞️ Gaya Visual: Cerah, modern, transisi cepat\n`;
+      prompt += `📷 Kamera: Zoom ke fitur, panning ke UI produk\n`;
+      prompt += `🎧 Musik: Upbeat modern\n`;
+      prompt += `🌫️ Mood: Semangat, percaya diri\n`;
+      prompt += `🧑 Karakter: Orang Indonesia dari berbagai latar belakang, berpakaian santai atau formal sesuai konteks\n`;
+      prompt += `🎙️ Narasi dan Dialog: Menggunakan Bahasa Indonesia\n`;
 
-      prompt += `🎬 Judul: Promosi ${judul}
-📌 Tema: Iklan modern dan profesional untuk pasar Indonesia
-🧩 Jenis Produk: ${jenis}
-🎯 Tujuan: ${tujuan}
-🎯 Target Audiens: Masyarakat Indonesia (remaja & dewasa)
-💡 Fitur Utama: ${fitur}
-${visualCue}
-🎞️ Gaya Visual: Cerah, lokal, modern, dengan sentuhan khas Indonesia
-📷 Kamera: Zoom ke fitur, panning ke UI aplikasi (jika relevan)
-🎧 Musik: Upbeat modern dengan nuansa lokal
-🌫️ Mood: Semangat, percaya diri
-🎙️ Narasi: Menggunakan Bahasa Indonesia, membahas keunggulan produk
-`;
       if (dialog.trim()) {
-        prompt += `🗣️ Dialog:
-${dialog}
-`;
+        prompt += `🗣️ Dialog:\n${dialog}\n`;
       }
-      prompt += `🎁 CTA: ${cta}
-⏱️ Durasi: 8 detik`;
+      prompt += `🎁 CTA: ${cta}\n`;
+      prompt += `⏱️ Durasi: 8 detik`;
 
-      document.getElementById('output').innerText = prompt;
+      document.getElementById('output').innerHTML = `<button id="copyBtn" onclick="copyToClipboard()">Salin</button><pre>${prompt}</pre>`;
     }
-  </script></body>
+
+    function copyToClipboard() {
+      const outputText = document.querySelector('#output pre').innerText;
+      navigator.clipboard.writeText(outputText).then(() => {
+        showAlert();
+      });
+    }
+
+    function showAlert() {
+      const alertBox = document.getElementById('alertBox');
+      alertBox.style.display = 'block';
+      setTimeout(() => {
+        alertBox.style.display = 'none';
+      }, 2000);
+    }
+  </script>
+</body>
 </html>
